@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <f:view contentType="text/html">
+        <h:head >                                        
+            <link rel="stylesheet" href="css/w3.css"/>
+            <link href="https://www.w3schools.com/lib/w3-theme-indigo.css" rel="stylesheet" type="text/css"/>
+            <link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.css"/>
+            <link rel="stylesheet" href="css/garimpeiro.css"/>
+            <link rel="shortcut icon" href="images/favicon.ico" />                                                                         
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>GarimpeiroWeb</title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body">
+                       
+            <ui:include src="login.xhtml" />
+            <ui:include src="menuSuperior.xhtml" />  
+            
+            <!-- Container -->
+            <div id="container" style="margin-top:3%;" class="w3-container w3-center w3-dark-grey" > 
+                <ui:include src="status.xhtml" />
+                <div class="w3-container">                        
+                    <!-- Container -->
+                    <div class="w3-container w3-padding-48 w3-animate-opacity">
+                        <div class="w3-row">
+                            <div class="w3-col m5">
+                                <div class="w3-padding-16"><span class="w3-xlarge w3-border-orange w3-bottombar">Cadastre-se!</span></div>
+                                <h3>Atenção:</h3>
+                                <p>Seja preciso nestas informações, pois utilizaremos para facilitar que os <b>clientes</b> o encontre.</p>
+                                <p><i class="fa fa-university w3-text-orange w3-xlarge"></i>  Nome Fantasia.</p>
+                                <p><i class="fa fa-envelope-o w3-text-orange w3-xlarge"></i>  Seu e-mail pessoal.</p>                        
+                                <p><i class="fa fa-cogs w3-text-orange w3-xlarge"></i>  Categoria de Prestaçao de Serviço.</p> 
+                                <p><i class="fa fa-map-marker w3-text-orange w3-xlarge"></i>  Localidade.</p>                                                                       
+                            </div>                    
+
+                            <div class="w3-col m7">
+
+                                <div class="w3-container w3-round-large w3-card-4 w3-animate-right w3-white" >                            
+
+                                    <h:form id="form">
+
+                                        <div class="w3-group">
+                                            <p:messages globalOnly="true"/>                                
+                                        </div>
+
+                                        <h:panelGroup class="w3-group" rendered="#{not cadastro.fim}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;" ><p:outputLabel for="tipoId" value="Tipo:"/></td>
+                                                    <td style="width: 75%;text-align: left;" >
+                                                        <p:selectOneMenu  id="tipoId" required="true" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.tipo}" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" >
+                                                            <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+                                                            <f:selectItem itemLabel="Cliente"   itemValue="1" /> 	 
+                                                            <f:selectItem itemLabel="Prestador" itemValue="2" /> 
+                                                            <f:ajax event="change" execute="@this" listener="#{cadastro.mudarTipo}" render="form"/>
+                                                        </p:selectOneMenu>                                                      
+                                                    </td>
+                                                </tr>
+                                            </table>                                                                                                        
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.cliente}" >
+                                            <table class="w3-table">                                                
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;" ><p:outputLabel for="nomeId" value="Nome:"/></td>
+                                                    <td style="width: 75%;text-align: left;" ><p:inputText id="nomeId" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" required="true" label="nome" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.profile.nome}" placeholder="Nome..." /></td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.cliente}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="emailId" value="Email:"/></td>
+                                                    <td style="width: 75%;text-align: left;">                                            
+                                                        <p:inputText id="emailId" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" required="true" label="email" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.profile.email}" placeholder="E-mail">
+                                                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                        </p:inputText>                                                                                                        
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.cliente}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="email2" value="Email:"/></td>
+                                                    <td style="width: 75%;text-align: left;">                                            
+                                                        <p:inputText id="email2" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" required="true" label="email" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.mail}" placeholder="Confirme seu e-mail">
+                                                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                        </p:inputText>                                                                
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.cliente}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="senhaId" value="Senha:"/></td>
+                                                    <td style="width: 75%;text-align: left;"><p:password id="senhaId" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" required="true" label="senha" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.password}" placeholder="Senha" feedback="true" promptLabel="Nível de Segurança" weakLabel="Fraco" goodLabel="Bom" strongLabel="Forte"/></td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>                                    
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.cliente}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="senhaConfirmacaoId" value="Senha:"/></td>
+                                                    <td style="width: 75%;text-align: left;"><p:password id="senhaConfirmacaoId" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" required="true" label="senha" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.profile.password}" placeholder="Confirme sua Senha" feedback="true" promptLabel="Nível de Segurança" weakLabel="Fraco" goodLabel="Bom" strongLabel="Forte"/></td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>             
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.prestador}" >                     
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="servicoId" value="Categoria do Serviço:"/></td>
+                                                    <td style="width: 75%;text-align: left;"><p:autoComplete id="servicoId" class="w3-input w3-border-left w3-border-right w3-round-medium w3-border-top w3-border-bottom" inputStyleClass="w3-input w3-border-0" value="#{cadastro.texto}" completeMethod="#{cadastro.autoComplete}" placeholder="Qual o tipo de Serviço que você presta ?" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" required="true"/></td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.prestador}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="cepId" value="CEP:"/></td>
+                                                    <td style="width: 75%;text-align: left;">
+                                                        <p:inputMask id="cepId" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" value="#{cadastro.cep}" mask="99.999-999" placeholder="CEP" required="true" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!"  >
+                                                            <p:ajax event="keyup" update="logradouroId complementoId bairroId localidadeId ufId" listener="#{cadastro.keyEventCep()}" />
+                                                        </p:inputMask>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.prestador}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="logradouroId" value="Logradouro:"/></td>
+                                                    <td style="width: 75%;text-align: left;"><p:inputText id="logradouroId" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" required="true" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.endereco.logradouro}" placeholder="Logradouro"/></td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.prestador}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="complementoId" value="Complemento:"/></td>
+                                                    <td style="width: 75%;text-align: left;"><p:inputText id="complementoId" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" label="complemento" value="#{cadastro.endereco.complemento}" placeholder="Complemento " /></td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.prestador}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="bairroId" value="Bairro:"/></td>
+                                                    <td style="width: 75%;text-align: left;"><p:inputText id="bairroId" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" required="true" label="bairro" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.endereco.bairro}" placeholder="Bairro"/></td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.prestador}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="localidadeId" value="Localidade:"/></td>
+                                                    <td style="width: 75%;text-align: left;"><p:inputText id="localidadeId" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom" required="true" label="localidade" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.endereco.localidade}" placeholder="Localidade"/></td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.prestador}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td style="width: 25%;text-align: right;"><p:outputLabel for="ufId" value="UF:"/></td>
+                                                    <td style="width: 75%;text-align: left;">                                        
+                                                        <p:selectOneMenu id="ufId" required="true" label="uf" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.uf}" class="w3-input w3-border-left w3-border-right w3-border-top w3-border-bottom">
+                                                            <f:selectItem itemLabel="Selecione o UF" itemValue="" noSelectionOption="true"/>
+                                                            <f:selectItems value="#{cadastro.ufs}" var="uf" itemLabel="#{uf}" itemDescription="#{uf}" itemValue="#{uf}"/>
+                                                        </p:selectOneMenu>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup class="w3-group" rendered="#{cadastro.cliente or cadastro.prestador}" >
+                                            <table class="w3-table">
+                                                <tr>
+                                                    <td><p:commandButton value="Cadastrar" action="#{cadastro.savePrestador}" icon="ui-icon-check" ajax="true" class="w3-btn-block w3-orange w3-text-white" update="form" oncomplete="#tipoId" /></td>
+                                                </tr>
+                                            </table>
+                                        </h:panelGroup>  
+
+                                        <h:panelGroup id="clienteId" class="w3-card-4" rendered="#{cadastro.fim}" >
+                                            <div class="w3-container">                                                                                              
+                                                <p>#{cadastro.profile.nome}, Não esqueça de confirmar seu cadastro no e-mail abaixo.</p>
+                                                <p>Email: #{cadastro.profile.email}</p>
+                                                <hr/>                                                
+                                                <p>Aproveite e localize os melhores prestadores de serviço do Brasil..</p>                                                
+                                                <br/>
+                                            </div>
+                                        </h:panelGroup>  
+
+                                        <p:spacer height="10px;" width="10px;"/>
+                                    </h:form>
+                                </div> 
+                            </div>
+                        </div>                        
+                    </div>                                                                   
+                </div>                                                                
+            </div>                           
+
+            <h:panelGroup id="naoLogado"/>                            
+
+            <h:panelGroup id="footer">
+                <ui:include src="footer.xhtml" />            
+            </h:panelGroup>                               
+        </h:body>
+    </f:view>
+</html> 

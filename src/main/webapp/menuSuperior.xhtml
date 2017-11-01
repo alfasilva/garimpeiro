@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:panelGroup id="menuSuperiorGroup" > 
+        <h:form id="formMenu" prependId="false" >
+            <div class="w3-top">                
+                <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">                                                                                                 
+                    <li><a href="index.xhtml" class="w3-indigo w3-text-white w3-hover-text-orange"><img class="fa fa-home w3-margin-right" src="images/logo.png" style="max-width: 150px;" /></a></li>                    
+                    <li class="w3-hide-small"><a href="cadastro.xhtml" class="w3-indigo w3-text-white w3-hover-text-orange" title="Cadestre-se" >Cadestre-se</a></li>
+                    <li class="w3-hide-small"><a href="faleConosco.xhtml" class="w3-indigo w3-text-white w3-hover-text-orange" title="Fale conosco" >Fale conosco</a></li>                    
+                    <h:panelGroup rendered="#{not empty user.profile}">
+                        <li class="w3-hide-small w3-dropdown-hover w3-right">
+                            <div class="w3-btn w3-indigo w3-text-white w3-hover-text-orange">                                
+                                #{user.profile.nome}
+                                <img class="w3-circle" style="max-width: 28px;max-height: 28px;" src="#{user.profile.url}"/>                               
+                           </div>
+                           <div class="w3-dropdown-content" style="right:0" >                                
+                                <a class="w3-btn w3-indigo w3-text-white w3-hover-text-orange" href="index.xhtml" > <i class="w3-left fa fa-home" aria-hidden="true" /> Home</a>
+                                <a class="w3-btn w3-indigo w3-text-white w3-hover-text-orange" href="profile.xhtml" > <i class="w3-left fa fa-user" aria-hidden="true" /> Profile</a>                    
+                                <a class="w3-btn w3-indigo w3-text-white w3-hover-text-orange" href="servico.xhtml" > <i class="w3-left fa fa-cart-plus" aria-hidden="true" /> Servico</a>
+                                <a class="w3-btn w3-indigo w3-text-white w3-hover-text-orange" href="mensagem.xhtml" > <i class="w3-left fa fa-envelope-o" aria-hidden="true" /> Mensagens</a>                                
+                                <p:commandLink class="w3-btn w3-red w3-hover-text-indigo fa fa-power-off" action="#{user.desLogar}" value=" Sair"/>
+                            </div>
+                        </li>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{empty user.profile}">
+                        <li class="w3-hide-small w3-right">                                                                                                                         
+                            <p:commandLink class="w3-btn w3-indigo w3-text-white w3-hover-text-orange fa fa-user w3-xxlarge" action="#{user.popup}" onclick="document.getElementById('loginGroup').style.display = 'block'" />                            
+                        </li>
+                    </h:panelGroup>                    
+                </ul>                
+            </div> 
+        </h:form>
+    </h:panelGroup>  
+</html>
+

@@ -1,0 +1,60 @@
+/* W3.CSS 2.71 by Jan Egil and Borge Refsnes */
+/** Password Panel **/
+.ui-password-panel {
+    background-color: white;
+    border-style: solid;
+    border-color: orange;
+    color: darkorange;
+}
+
+.ui-widget-content .ui-state-highlight {
+    background-color: orange;
+    color: white;    
+    background-image: none;
+}
+
+.ui-state-hover {
+    box-shadow: none;
+    outline: 0 none;
+    background-color: orange;
+    background-image: none; 
+}
+
+.ui-inputfield.ui-state-focus, .ui-widget-content .ui-inputfield.ui-state-focus, .ui-widget-header .ui-inputfield.ui-state-focus {
+    border-color: orange;
+    box-shadow: none;
+    outline: 0 none;
+}
+
+.ui-inputfield {
+    box-shadow: none;
+    outline: 0 none;
+    background-color: white;
+    background-image: none;
+}
+
+.ui-selectonemenu, .ui-widget, .ui-state-default, .ui-corner-all {
+    background-color: white;
+    background-image: none;
+}
+
+.ui-widget-content {
+    border: 0 none;
+    color: #aaa;
+    background-color: white;
+    background-image: none;    
+    box-shadow: none;
+}
+
+.ui-state-focus {
+    border-color: orange;
+    box-shadow: none;
+    outline: 0 none;
+    border: 0 none;
+}
+
+.ui-fileupload-content .ui-progressbar {
+    width: 20px;
+    height: 10px;
+    margin: 0
+}

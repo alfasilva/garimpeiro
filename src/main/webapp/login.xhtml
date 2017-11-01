@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:o="http://openfaces.org/"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:panelGroup id="loginGroup" class="w3-modal">
+        <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="width: 30%;">  
+            <h:form id="formLogin" prependId="false" >
+                <div class="w3-center"><br/>
+                    <span onclick="document.getElementById('loginGroup').style.display = 'none'" class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright" title="Close Modal">×</span>
+                    <img src="images/garimpeiro/logo-garimpeiro.png" alt="Logo" style="max-width:280px;height: 80px;" class="w3-margin-top"/>
+                </div>
+
+                <div class="w3-container">
+                    <div class="w3-group">  
+                        <p:messages globalOnly="true"/>
+                    </div>
+
+                    <div class="w3-group">  
+                        <p:inputText id="usuarioLogin" class="w3-input w3-border w3-hover-border-orange" placeholder="nome@email.com.br" value="#{user.email}" required="true" />                                                    
+                    </div>
+
+                    <div class="w3-group">  
+                        <p:password  id="usuarioSenha" class="w3-input w3-border w3-hover-border-orange" placeholder="Senha" value="#{user.senha}" required="true" />
+                    </div>     
+
+                    <div class="w3-group">  
+                        <p:commandButton class="w3-btn-block w3-orange w3-padding" value="Acessar sua Conta" action="#{user.logar}"/>
+                    </div>
+                </div>
+
+                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">                                                                                    
+                    <p:link outcome="faleConosco" value=" Você esqueceu sua senha ?" class="w3-right w3-padding w3-hide-small w3-light-grey" >
+                        <f:param name="novaSenha" value="true"/>                                
+                    </p:link>                    
+                </div>           
+            </h:form>
+        </div>    
+    </h:panelGroup> 
+</ui:composition>
+

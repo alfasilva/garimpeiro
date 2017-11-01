@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <f:view contentType="text/html">
+        <h:head >                                        
+            <link rel="stylesheet" href="css/w3.css"/>
+            <link href="https://www.w3schools.com/lib/w3-theme-indigo.css" rel="stylesheet" type="text/css"/>
+            <link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.css"/>
+            <link rel="stylesheet" href="css/garimpeiro.css"/>
+            <link rel="shortcut icon" href="images/favicon.ico" />                                                                       
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>GarimpeiroWeb</title>
+            </f:facet>
+        </h:head>
+        <h:body>                                    
+            <ui:include src="login.xhtml" />
+            <ui:include src="menuSuperior.xhtml" />
+            <ui:include src="status.xhtml" />
+            <h:panelGroup id="container">     
+                <h:panelGroup rendered="#{not empty user.profile}"> 
+                    <div class="w3-container w3-padding-64 w3-center">                        
+                        <ui:include src="menuEsquerdo.xhtml" />                    
+                        <ui:include src="status.xhtml" />
+                        <div style="margin-left:21%;margin-top:1%;">
+                            <h:panelGroup rendered="#{ngFinMb.exibir}" >                                
+                                <h:form id="form" class="w3-form" >
+                                    <div class="w3-card-8 w3-dark-grey">
+                                        <div class="w3-container w3-center">
+                                            <h3 class="w3-text-amber" >Você tem certeza que deseja encerrar esta negociação?</h3>                                                                                         
+                                            <div class="w3-row">
+                                                <div class="w3-col s6 w3-center-align">
+                                                    <p>  
+                                                        <img src="#{ngFinMb.usuarioA.url}" alt="Avatar" style="max-width: 100px;max-height: 100px;"/>
+                                                        <h5>#{ngFinMb.usuarioA.nome}</h5>
+                                                    </p>
+                                                </div>
+                                                <div class="w3-col s6 w3-center-align">
+                                                    <p>  
+                                                        <img src="#{ngFinMb.usuarioB.url}" alt="Avatar" style="max-width: 100px;max-height: 100px;"/>
+                                                        <h5>#{ngFinMb.usuarioB.nome}</h5>
+                                                    </p>
+                                                </div>
+                                            </div>                                                                      
+                                            <p:commandButton disabled="#{ngFinMb.finalizada}" class="w3-btn w3-green w3-medium" value="Finalizar " action="#{ngFinMb.finalizar}" update="form" style="margin-right:1%;" />
+                                            <p:link outcome="mensagem" value="Cancelar " class="w3-btn w3-red w3-large w3-round-medium"/>
+                                            <hr/>
+                                            <h:outputText value="Você já encerrou esta negociação, estamos aguardando o encerramento pela autra parte." rendered="#{ngFinMb.finalizada}" />
+                                        </div>
+                                    </div>                                
+                                </h:form>
+                            </h:panelGroup>                        
+                        </div>    
+                    </div>
+                </h:panelGroup>
+            </h:panelGroup>            
+
+            <h:panelGroup id="naoLogado">
+                <h:panelGroup rendered="#{empty user.profile}" > 
+                    <ui:include src="naoLogado.xhtml" />            
+                </h:panelGroup>                    
+            </h:panelGroup> 
+
+            <h:panelGroup id="footer">
+                <h:panelGroup rendered="#{empty user.profile}" > 
+                    <ui:include src="footer.xhtml" />            
+                </h:panelGroup>
+            </h:panelGroup> 
+
+        </h:body>
+    </f:view>
+</html>

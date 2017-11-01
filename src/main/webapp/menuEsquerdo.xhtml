@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:o="http://openfaces.org/"
+                xmlns:p="http://primefaces.org/ui">
+
+    <nav class="w3-sidenav w3-collapse w3-white w3-card-2" style="width:20%;margin-top:1%;" id="mySidenav">
+        <div class="w3-border-indigo w3-large" style="margin-top:3%;" >
+            <div class="w3-container w3-center">                            
+                <img src="#{user.profile.url}" alt="#{user.profile.nome}" class="w3-circle"  style="width:40%"/>
+                <h5>#{user.profile.nome}</h5>
+            </div>
+        </div>
+        <hr/>    
+        <h:panelGroup rendered="false">
+            <a id="myBtn1" onclick="sidenavController('aba1')" href="javascript:void(0)"><i class="fa fa-puzzle-piece w3-padding-right"></i>ABA 01 (300)<i class="w3-padding-left fa fa-caret-down"></i></a>
+            <div id="aba1" class="w3-accordion-content"> 
+                <h5>Aba 01</h5>
+            </div>
+            <a id="myBtn2" onclick="sidenavController('aba2')" href="javascript:void(0)"><i class="fa fa-puzzle-piece w3-padding-right"></i>ABA 02 (300)<i class="w3-padding-left fa fa-caret-down"></i></a>
+            <div id="aba2" class="w3-accordion-content"> 
+                <h5>Aba 02</h5>
+            </div>                                
+            <a id="myBtn3" onclick="sidenavController('aba3')" href="javascript:void(0)"><i class="fa fa-puzzle-piece w3-padding-right"></i>ABA 03 (300)<i class="w3-padding-left fa fa-caret-down"></i></a>
+            <div id="aba3" class="w3-accordion-content"> 
+                <h5>Aba 03</h5>
+            </div>                                                                 
+            <hr/>
+        </h:panelGroup>        
+    </nav>
+
+    <script>
+        function sidenavController(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+                x.previousElementSibling.className += " w3-orange";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+                x.previousElementSibling.className = x.previousElementSibling.className.replace(" w3-orange", "");
+            }
+        }
+    </script>     
+
+</ui:composition>
+

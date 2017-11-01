@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Dashboard Transacional</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>            
+
+            <f:facet name="last">
+                <h:outputStylesheet library="css" name="styles.css" />                
+            </f:facet>              
+
+            <p:layout fullPage="true" >
+
+                <p:layoutUnit position="north" size="100" resizable="true">
+                    <p:graphicImage value="../resources/img/logo.png" dir="left" />
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="west" size="250" header="Menu Principal" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Sistemas">
+                            <p:menuitem value="Dashboards" url="dashboard.xhtml" />
+                            <p:menuitem value="Cadastro Terminais" url="terminal.xhtml" />
+                        </p:submenu>
+                    </p:menu>
+                </p:layoutUnit>                  
+
+                <p:layoutUnit position="center" resizable="true">                    
+                    <h:form >                        
+                        <h:panelGrid columns="2">
+
+                            <p:chart type="line" model="#{chartView.multiAxisModel}" style="width:400px;height:300px" />
+
+                            <h:panelGroup>
+                                <p:chart type="line" model="#{chartView.lineModel1}" style="width:400px;height:300px" widgetVar="chart"/>                            
+                                <p:commandButton type="button" value="Export" icon="ui-icon-extlink" onclick="exportChart()"/>
+                                <p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Chart as an Image" resizable="false">
+                                    <p:outputPanel id="output" layout="block" style="width:400px;height:300px"/>
+                                </p:dialog>
+                            </h:panelGroup>
+
+                            <p:chart type="line" responsive="true" model="#{chartView.lineModel2}" style="width:400px;height:300px" />                    
+
+                            <p:chart type="donut" responsive="true" model="#{chartView.donutModel1}" style="width:400px;height:300px" />
+
+                            <p:chart type="donut" responsive="true" model="#{chartView.donutModel2}" style="width:500px;height:300px" />
+
+                            <p:chart type="bar" responsive="true" model="#{chartView.barModel}" style="height:300px"/>
+
+                            <p:chart type="bar" responsive="true" model="#{chartView.horizontalBarModel}" style="height:300px"/>                            
+                            
+                        </h:panelGrid>
+
+                    </h:form>                    
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+
+    </f:view>
+</html>
+

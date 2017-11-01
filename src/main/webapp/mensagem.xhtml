@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <f:view contentType="text/html">
+        <h:head >                                        
+            <link rel="stylesheet" href="css/w3.css"/>
+            <link href="https://www.w3schools.com/lib/w3-theme-indigo.css" rel="stylesheet" type="text/css"/>
+            <link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.css"/>
+            <link rel="stylesheet" href="css/garimpeiro.css"/>
+            <link rel="shortcut icon" href="images/favicon.ico" />                                                                       
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>GarimpeiroWeb</title>
+            </f:facet>
+        </h:head>
+        <h:body>                                    
+            <ui:include src="login.xhtml" />
+            <ui:include src="menuSuperior.xhtml" />
+            <ui:include src="status.xhtml" />
+            
+            <h:panelGroup id="container">     
+                
+                <h:panelGroup rendered="#{not empty user.profile}"> 
+                    
+                    <div class="w3-container w3-padding-64 w3-center">                        
+                        <ui:include src="menuEsquerdo.xhtml" />                    
+                        <h:form id="form" style="margin-left:21%;margin-top:1%;" prependId="false" rendered="#{not empty msgMb.de and not empty msgMb.para}" >
+                            <table class="w3-table w3-animate-right" >
+                                <tr style="width: 100%;" >
+                                    <td style="width: 50%;" >
+                                        <div class="w3-card-8 w3-dark-grey">
+                                            <div class="w3-container w3-center">
+                                                <div id="formMenssagem" prependId="false" >
+                                                    <h3>De</h3>
+                                                    <img src="#{msgMb.de.url}" style="max-width: 100px;max-height: 100px;"/>
+                                                    <h5>#{msgMb.de.nome}</h5>                                                                                        
+                                                    <p><p:inputText disabled="false" class="w3-input w3-hover-border-green" placeholder="Gostaria de contratar seu Serviço." value="#{msgMb.texto}"/></p>
+                                                    <p><p:commandButton disabled="false" class="w3-btn-block w3-green" value="Enviar " action="#{msgMb.enviar}" update="form retorno"/></p>
+                                                </div>                                                    
+                                            </div>
+                                        </div>                                            
+                                    </td>
+                                    <td style="width: 50%;" >
+                                        <div class="w3-card-8 w3-dark-grey">
+                                            <div class="w3-container w3-center">
+                                                <div id="formMenssagem" prependId="false" >
+                                                    <h3>Para</h3>
+                                                    <img src="#{msgMb.para.url}" style="max-width: 100px;max-height: 100px;"/>
+                                                    <h5>#{msgMb.para.nome}</h5>
+                                                    <p><p:inputText disabled="true" class="w3-input w3-hover-border-green" placeholder="Tudo bem logo respondo..."/></p>
+                                                    <p><p:commandButton disabled="true" class="w3-btn-block w3-green" value="Enviar " action="#{msgMb.enviar}" /></p>
+                                                </div>                                                    
+                                            </div>
+                                        </div>                                            
+                                    </td>                                    
+                                </tr>                                                                                           
+                            </table> 
+                        </h:form>
+
+                        <div style="margin-left:21%;margin-top:1%;">
+                            <h:panelGroup id="retorno" >
+                                <p:dataGrid value="#{msgMb.retorno}" layout="grid" var="r" columns="1" emptyMessage="Você não possui novas mensagens." rendered="#{not msgMb.exibirLink}" >
+                                    <div class="w3-card-4 w3-round-medium">
+                                        <div class="w3-green w3-text-white">
+                                            <i class="fa fa-briefcase w3-center" aria-hidden="true" /> Negociação: A00#{r.negociacao.id}0 
+                                            <i class="fa fa-print w3-right" aria-hidden="true" style="margin-right:1%;" title="Salve suas conversas para sua maior segurança."/>
+                                        </div>
+                                        <p:dataGrid id="retornoSub" class="w3-table w3-animate-right" value="#{r.msg}" rowIndexVar="row" var="m" columns="1" rows="20" layout="grid">                                                                                        
+                                            <div class="w3-row w3-text-indigo w3-hover-green w3-hover-text-white w3-round-large" style="width: 100%;" >                                                                                                                                           
+                                                <div class="w3-col s4" style="text-align: center">
+                                                    <img src="#{m.emissor.url}" class="w3-circle" style="max-width: 20px;max-height: 20px;margin-right: 4px;"/>
+                                                    <h:outputText value="#{m.emissor.nome}" class="w3-text #{m.emissor eq user.profile?'w3-text-orange':'w3-text-pink'}" />
+                                                </div>
+                                                <div class="w3-col s4" style="text-align: center">
+                                                    <h:outputText value="#{m.data}" class="w3-text" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-03:00"/></h:outputText>
+                                                </div>                                                                                                    
+                                                <div class="w3-col s4" style="text-align: left">
+                                                    <h:outputText class="w3-text" value="#{m.texto}"/>                                                                                         
+                                                </div>                                                
+                                            </div>                                            
+                                        </p:dataGrid>
+                                    </div>
+                                </p:dataGrid> 
+                                                                                             
+                                <p:dataGrid value="#{msgMb.retorno}" layout="grid" var="r" columns="1" emptyMessage="Você não possui novas mensagens." rendered="#{msgMb.exibirLink}" >
+                                    <div class="w3-card-4 w3-animate-bottom">
+                                        <div class="w3-grey w3-text-white">
+                                            <i class="fa fa-briefcase w3-center" aria-hidden="true" /> Negociação: A00#{r.negociacao.id}0 
+                                            <i class="fa fa-print w3-right" aria-hidden="true" style="margin-right:1%;" title="Salve suas conversas para sua maior segurança."/>
+                                        </div>   
+                                        <div class="w3-row" style="width: 100%;" >                                            
+                                            <div class=" w3-twothird fa fa-envelope-o" style="margin-top: 4px;">
+                                                <h:outputText value="#{r.msg.size()}" class="w3-text-blue" style="margin-left: 4px;margin-right: 4px;" /> 
+                                                <img src="#{r.negociacao.cliente.url}" class="w3-circle" style="max-width: 20px;max-height: 20px;margin-right: 4px;"/>
+                                                <h:outputText value="#{r.negociacao.cliente.nome}" class="w3-text-orange" style="margin-right: 4px;" /> 
+                                                <h:outputText value="#{r.msg.get(r.msg.size()-1).texto}" class="w3-text" /> 
+                                            </div>
+                                            <div class="w3-third">
+                                                <p:link outcome="mensagem" value="Responder " class="w3-btn w3-amber w3-text-white w3-round-small" style="margin-right: 4px;">
+                                                    <f:param name="uid" value="#{user.profile.id eq r.negociacao.cliente.id ? r.negociacao.prestador.id : r.negociacao.cliente.id}"  />
+                                                    <f:param name="business" value="#{r.negociacao.servicoprestador.id}" />
+                                                </p:link>                                         
+                                                <p:link outcome="finalizarNegociacao" value="Finalizar " class="w3-btn w3-red w3-text-white w3-round-small">                                                    
+                                                    <f:param name="negotiate" value="#{r.negociacao.id}" />   
+                                                </p:link>
+                                            </div>                                                                                
+                                        </div>                                        
+                                    </div>
+                                </p:dataGrid>                                                                                                
+                            </h:panelGroup>
+                        </div>    
+                    </div>
+                </h:panelGroup>
+            </h:panelGroup>            
+
+            <h:panelGroup id="naoLogado">
+                <h:panelGroup rendered="#{empty user.profile}" > 
+                    <ui:include src="naoLogado.xhtml" />            
+                </h:panelGroup>                    
+            </h:panelGroup> 
+
+            <h:panelGroup id="footer">
+                <h:panelGroup rendered="#{empty user.profile}" > 
+                    <ui:include src="footer.xhtml" />            
+                </h:panelGroup>
+            </h:panelGroup> 
+            
+        </h:body>
+    </f:view>
+</html>

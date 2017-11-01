@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <f:view contentType="text/html">
+        <h:head >                                        
+            <link rel="stylesheet" href="css/w3.css"/>
+            <link href="https://www.w3schools.com/lib/w3-theme-indigo.css" rel="stylesheet" type="text/css"/>
+            <link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.css"/>
+            <link rel="stylesheet" href="css/garimpeiro.css"/>
+            <link rel="shortcut icon" href="images/favicon.ico" />                                                                       
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>GarimpeiroWeb</title>
+            </f:facet>
+        </h:head>
+        <h:body>                                    
+            <ui:include src="login.xhtml" />
+            <ui:include src="menuSuperior.xhtml" />
+            <ui:include src="status.xhtml" />
+            <h:panelGroup id="container">                
+                <h:panelGroup rendered="#{not empty user.profile}"> 
+                    <div class="w3-container w3-padding-64 w3-center">
+                        <ui:include src="menuEsquerdo.xhtml" />                    
+                        <div class="w3-main" style="margin-top:1%;margin-left:21%;" >
+                            <h:form id="formServico" enctype="multipart/form-data" rendered="#{user.profile.tipo eq 2 and empty servico.prestador}" >                                     
+                                <div class="w3-card-4" >  
+                                    <p:messages id="msg" globalOnly="true"/>
+                                    <table class="w3-table">
+                                        <tr>
+                                            <td style="width: 15%;text-align: right;"><p:outputLabel for="nome" value="Serviço Prestado:" /></td>
+                                            <td style="width: 60%;text-align: left;" ><p:autoComplete id="nome" value="#{servico.texto}" style="width: 100%;" inputStyleClass="w3-input w3-border w3-hover-border-orange" completeMethod="#{servico.autoComplete}" required="true" placeholder="EX:Segurança de Enventos" /></td>
+                                            <td style="width: 10%;text-align: right;"><p:outputLabel for="vlr" value="Valor:" /></td>
+                                            <td style="width: 15%;text-align: left;" ><p:inputNumber id="vlr" inputStyleClass="w3-input w3-border w3-hover-border-orange" symbol="R$ " decimalSeparator="," thousandSeparator="." size="10" value="#{servico.valor}" required="true" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 15%;text-align: right;"><p:outputLabel for="desc" value="Descrição:" /></td>
+                                            <td style="width: 60%;text-align: left;"><p:inputTextarea class="w3-input w3-border w3-hover-border-orange" id="desc" value="#{servico.descricao}" required="true" placeholder="EX:Possuímos ótimas referências e qualidade no serviços prestados. Máximo 200 caracteres." maxlength="200" autoResize="true"/></td>
+                                            <td style="width: 10%;text-align: right;"><p:outputLabel for="img" value="Foto:" /></td>
+                                            <td style="width: 15%;text-align: left;"><p:fileUpload id="img" styleClass="w3-border-o" value="#{servico.file}" mode="simple" skinSimple="true" required="true" sizeLimit="100000" label="Selecione" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" ><p:commandButton value="Cadastrar" actionListener="#{servico.cadastrar}" update="formServico" ajax="false" class="w3-btn-block w3-green" /></td>
+                                        </tr>                            
+                                    </table>
+                                </div> 
+                            </h:form>  
+                            <h:panelGroup rendered="#{not empty servico.prestador}">
+                                <div class="w3-card-8 w3-dark-grey">
+                                    <div class="w3-container w3-center">
+                                        <h5>#{servico.prestador.nome}</h5>
+                                        <img class="w3-round-xxlarge" src="#{servico.prestador.url}" alt="#{servico.prestador.nome}" style="max-width: 10%;"/>
+                                        <h6>#{servico.prestador.descricao}</h6>                                            
+                                    </div>
+                                </div>
+                            </h:panelGroup>                                
+                            <hr/>
+                            <p:dataGrid id="dataScrollerServicos" class="w3-table" value="#{servico.retorno}" var="s" columns="1" layout="grid" rendered="#{not empty servico.retorno}" >                                    
+                                <div class="w3-card-12 w3-animate-left" id="pres-#{s.servicoPrestado.id}" >
+                                    <table class="w3-table">
+                                        <tr>
+                                            <th colspan="3" class="w3-dark-grey"><h:outputText value="#{s.servicoPrestado.servico.categoria.nome}"/></th>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: right;"><i class="fa fa-cog" aria-hidden="true"/></td>
+                                            <td><h:outputText value="#{s.servicoPrestado.servico.nome}"/></td>
+                                        <td></td>    
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td rowspan="3" style="text-align: left;" ><img src="#{s.servicoPrestado.url}" style="width:100%;max-width:300px;max-height: 200px;" class="w3-round w3-hover-opacity" /></td>
+                                            <td><i class="fa fa-money" aria-hidden="true"/> <h:outputText value="#{s.servicoPrestado.valor}"><f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" /></h:outputText></td>    
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: right;"><i class="fa fa-camera-retro" aria-hidden="true" /></td>
+                                            <td><i class="fa fa-calendar" aria-hidden="true" />Inicio: <h:outputText value="#{s.servicoPrestado.dataIni}" > <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00"/></h:outputText></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><i class="fa fa-calendar" aria-hidden="true"/>Fim: <h:outputText value="#{empty s.servicoPrestado.dataFim ? 'N/A':s.servicoPrestado.dataFim}" > <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00"/></h:outputText></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: right;" ><i class="fa fa-quote-left" aria-hidden="true"/></td>
+                                            <td><h:outputText value="#{s.servicoPrestado.descricao}" /></td>
+                                        <td style="text-align: center;" >
+                                            <i class="fa fa-briefcase w3-animate-zoom w3-text-indigo w3-xlarge" style="animation-duration: 3s;" aria-hidden="true"/> <b class="w3-text-indigo w3-xlarge">#{s.bom+s.ruim}</b>
+                                            <i class="fa fa-thumbs-o-up w3-animate-zoom w3-text-green w3-xlarge" style="animation-duration: 2s;" aria-hidden="true"/> <b class="w3-text-green w3-xlarge">#{s.bom}</b>
+                                            <i class="fa fa-thumbs-o-down w3-animate-zoom w3-text-red w3-xlarge" style="animation-duration: 1s;" aria-hidden="true"/> <b class="w3-text-red w3-xlarge">#{s.ruim}</b>
+                                        </td>
+                                        </tr> 
+                                        <tr>
+                                            <td colspan="3">
+                                            <p:link outcome="mensagem" value="Contratar" class="w3-btn-block w3-green w3-text-white w3-round-large w3-large w3-border-white fa fa-check-circle-o" disabled="#{empty servico.prestador or user.profile.id eq servico.prestador.id}" >
+                                                <f:param name="uid" value="#{s.servicoPrestado.prestador.id}"/>
+                                                <f:param name="business" value="#{s.servicoPrestado.id}" />
+                                            </p:link>
+                                        </td>
+                                        </tr>
+                                    </table> 
+                                </div>
+                            </p:dataGrid>   
+                            <h:panelGroup rendered="#{user.profile.tipo eq 1 and empty servico.prestador}">
+                                <div class="w3-card-4">
+                                    <header class="w3-container w3-light-grey">
+                                        <h3>Perfil Cliente</h3>
+                                    </header>
+                                    <div class="w3-container">                                       
+                                        <p>Olá #{user.profile.nome}, você não possui serviços cadastrados, pois você esta utilizando um perfil de cliente.</p>                                        
+                                        <hr/>                                                                               
+                                    </div>                                    
+                                </div>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </h:panelGroup>            
+
+            <h:panelGroup id="naoLogado">
+                <h:panelGroup rendered="#{empty user.profile}" > 
+                    <ui:include src="naoLogado.xhtml" />            
+                </h:panelGroup>                    
+            </h:panelGroup> 
+
+            <h:panelGroup id="footer">
+                <h:panelGroup rendered="#{empty user.profile}" > 
+                    <ui:include src="footer.xhtml" />            
+                </h:panelGroup>
+            </h:panelGroup>          
+        </h:body>
+    </f:view>
+</html>

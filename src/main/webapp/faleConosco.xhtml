@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <f:view contentType="text/html">
+        <h:head >                                        
+            <link rel="stylesheet" href="css/w3.css"/>
+            <link href="https://www.w3schools.com/lib/w3-theme-indigo.css" rel="stylesheet" type="text/css"/>
+            <link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.css"/>
+            <link rel="stylesheet" href="css/garimpeiro.css"/>
+            <link rel="shortcut icon" href="images/favicon.ico" />                                                                         
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>GarimpeiroWeb</title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body">                       
+            <ui:include src="login.xhtml" />
+            <ui:include src="menuSuperior.xhtml" />                  
+            <ui:include src="status.xhtml" /> 
+            <!-- Container -->
+            <h:panelGroup id="container" >
+                                
+                <h:panelGroup rendered="#{not empty user.profile}" class="w3-container w3-padding-4 w3-center w3-animate-opacity">
+
+                    <h:form id="formFaleConosco" prependId="false" rendered="#{not faleConosco.novaSenha}" >
+
+                        <div class="w3-container">                        
+                            <div class="w3-container w3-padding-48 w3-theme-l5">
+                                <div class="w3-row">
+                                    <div class="w3-col m5">
+                                        <div class="w3-padding-16"><span class="w3-xlarge w3-border-orange w3-bottombar">Deixe sua opinião!</span></div>
+                                        <p><i class="fa fa-fa-envelope-o w3-text-orange w3-xlarge"></i>  Fale conesco, deixe sua opinão ! Suas ideias ou reclamações serão de extrema valia para nós. Utilizaremos para ovoluir o sistema e prestar um melhor serviço para voçê.</p>
+                                    </div>                    
+                                    <div class="w3-col m7">
+                                        <div class="w3-container w3-card-4 w3-padding-16 w3-white" >                            
+                                            <div class="w3-group">
+                                                <p:messages id="msg" globalOnly="true"/>                                
+                                            </div>
+                                            <div class="w3-group">
+                                                <p:inputTextarea id="inputTextarea" class="w3-input w3-border w3-hover-border-orange" required="true" label="localidade" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{cadastro.textFeedback}" placeholder="Escreve aqui a sua opinião *" minQueryLength="5" maxlength="199" cols="6" rows="6" disabled="#{cadastro.showFeedback}" />
+                                                <p:message for="inputTextarea" />                                
+                                            </div>
+                                            <div class="w3-group">
+                                                <p:commandButton class="w3-btn w3-large w3-orange w3-hover-border-indigo w3-border w3-round-large" value="Enviar" action="#{cadastro.feedback}" icon="ui-icon-check" update="formFaleConosco" disabled="#{cadastro.showFeedback}" />
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>                                               
+                </h:panelGroup>   
+                
+                <h:form id="formSolicitaNovaSenha" prependId="false" rendered="#{faleConosco.novaSenha}" >                    
+                    
+                    <div class="w3-container w3-padding-64">       
+                        <div class="w3-card-4 w3-center w3-animate-zoom" style="margin-top:5%;">
+                            
+                            <header class="w3-grey w3-text-white">
+                                <h5>Solicitar uma nova senha</h5>
+                            </header>
+                            
+                            <div class="w3-group">
+                                <p:messages globalOnly="true"/>                                
+                            </div>
+                            
+                            <div class="w3-group">
+                                <table class="w3-table" >
+                                    <tr>
+                                        <td style="width: 25%;text-align: right;"><p:outputLabel for="emailId" value="Email:"/></td>
+                                        <td style="width: 75%;text-align: left;">                                            
+                                            <p:inputText id="emailId" class="w3-input w3-border w3-hover-border-orange" required="true" label="email" requiredMessage="Campo obrigatório." validatorMessage="Campo inválido!" value="#{faleConosco.email}" placeholder="meuemail@meudominio.com">
+                                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                            </p:inputText>                                                                                                        
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <h:panelGroup class="w3-group">
+                                <table class="w3-table">
+                                    <tr>
+                                        <td><p:commandButton value="Enviar" action="#{faleConosco.solicitarSenha}" icon="ui-icon-mail-closed" class="w3-btn-block w3-orange w3-text-white" update="formSolicitaNovaSenha"/></td>
+                                    </tr>
+                                </table>
+                            </h:panelGroup>  
+                        </div>    
+                    </div>
+                </h:form>
+
+                <h:panelGroup id="naoLogado" rendered="#{empty user.profile and not faleConosco.novaSenha}" >
+                    <ui:include src="naoLogado.xhtml" />            
+                </h:panelGroup> 
+
+                <h:panelGroup id="footer" >
+                    <ui:include src="footer.xhtml" />            
+                </h:panelGroup>                 
+
+            </h:panelGroup>
+        </h:body>
+    </f:view>
+</html> 
