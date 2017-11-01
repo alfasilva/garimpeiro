@@ -7,7 +7,7 @@
     <f:view contentType="text/html">
         <h:head >                                        
             <link rel="stylesheet" href="css/w3.css"/>
-            <link href="https://www.w3schools.com/lib/w3-theme-indigo.css" rel="stylesheet" type="text/css"/>
+            <link href="https://www.w3schools.com/lib/w3-theme-black.css" rel="stylesheet" type="text/css"/>
             <link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.css"/>
             <link rel="stylesheet" href="css/garimpeiro.css"/>
             <link rel="shortcut icon" href="images/favicon.ico" />                                                                       
@@ -27,7 +27,7 @@
                 <h:form id="formPesquisa">
                     <table>
                         <tr>
-                            <td style="text-align: right;" width="85%"><p:autoComplete class="w3-input w3-hover-border-indigo w3-border-0" inputStyleClass="w3-input w3-large w3-round-xlarge w3-border w3-hover-border-orange" id="filtro"  placeholder="QUE PROFISSIONAL OU SERVIÇO VOCÊ PROCURA?" value="#{pesquisa.palavra}" completeMethod="#{pesquisa.autoComplete}"/></td>
+                            <td style="text-align: right;" width="85%"><p:autoComplete class="w3-input w3-hover-border-black w3-border-0" inputStyleClass="w3-input w3-large w3-round-xlarge w3-border w3-hover-border-orange" id="filtro"  placeholder="QUE PROFISSIONAL OU SERVIÇO VOCÊ PROCURA?" value="#{pesquisa.palavra}" completeMethod="#{pesquisa.autoComplete}"/></td>
                             <td style="text-align: left;" width="15%"><p:commandButton class="w3-btn w3-large w3-white w3-hover-orange w3-border w3-round-xlarge" icon="ui-icon-search" value="BUSCAR" action="#{pesquisa.buscar}"/></td>
                         </tr>
                     </table>
@@ -73,7 +73,7 @@
                             <td style="text-align: right;" ><i class="fa fa-quote-left" aria-hidden="true"/></td>
                             <td><h:outputText value="#{r.servicoPrestado.descricao}" /></td>
                             <td style="text-align: center;" class="w3-btn-group w3-white" >                        
-                                <p:link outcome="servico" value="#{r.bom+r.ruim}" class="w3-text-indigo w3-white w3-xxlarge fa fa-briefcase" disabled="#{empty user.profile}">
+                                <p:link outcome="servico" value="#{r.bom+r.ruim}" class="w3-text-black w3-white w3-xxlarge fa fa-briefcase" disabled="#{empty user.profile}">
                                     <f:param name="uid" value="#{r.servicoPrestado.prestador.id}"/>
                                     <f:param name="business" value="#{r.servicoPrestado.id}" />
                                 </p:link>

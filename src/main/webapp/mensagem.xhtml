@@ -7,7 +7,7 @@
     <f:view contentType="text/html">
         <h:head >                                        
             <link rel="stylesheet" href="css/w3.css"/>
-            <link href="https://www.w3schools.com/lib/w3-theme-indigo.css" rel="stylesheet" type="text/css"/>
+            <link href="https://www.w3schools.com/lib/w3-theme-black.css" rel="stylesheet" type="text/css"/>
             <link rel="stylesheet" href="css/font-awesome-4.6.3/css/font-awesome.css"/>
             <link rel="stylesheet" href="css/garimpeiro.css"/>
             <link rel="shortcut icon" href="images/favicon.ico" />                                                                       
@@ -69,7 +69,7 @@
                                             <i class="fa fa-print w3-right" aria-hidden="true" style="margin-right:1%;" title="Salve suas conversas para sua maior segurança."/>
                                         </div>
                                         <p:dataGrid id="retornoSub" class="w3-table w3-animate-right" value="#{r.msg}" rowIndexVar="row" var="m" columns="1" rows="20" layout="grid">                                                                                        
-                                            <div class="w3-row w3-text-indigo w3-hover-green w3-hover-text-white w3-round-large" style="width: 100%;" >                                                                                                                                           
+                                            <div class="w3-row w3-text-black w3-hover-green w3-hover-text-white w3-round-large" style="width: 100%;" >                                                                                                                                           
                                                 <div class="w3-col s4" style="text-align: center">
                                                     <img src="#{m.emissor.url}" class="w3-circle" style="max-width: 20px;max-height: 20px;margin-right: 4px;"/>
                                                     <h:outputText value="#{m.emissor.nome}" class="w3-text #{m.emissor eq user.profile?'w3-text-orange':'w3-text-pink'}" />
